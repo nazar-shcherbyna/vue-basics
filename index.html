@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BA VUE</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+ 
+    <div id="app">
+        <input type="search" @input="filter" v-model='search'>
+        <ul>
+            <li v-for="art in filteredArticles">
+                <h3>{{art.title}}</h3>
+                <small>{{art.date}}</small>
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const App = {
+            data() {
+                return {
+                    search: '',
+                    filteredArticles: [],
+                    articles : [
+                        {
+                            title: 'Нет цирконию: масштабный автопробег и митинг под Мариуполем',
+                            date: '11 февраля 2021 в 16:34'
+                        },
+                        {
+                            title: 'Из Донецкой области в Россию выдворили ранее судимую нелегалку',
+                            date: '12 февраля 2021 в 15:15'
+                        },
+                        {
+                            title: 'На Донетчине задержали «агентов», завербованных ФСБ для сбора военных данных',
+                            date: '12 февраля 2021 в 14:14'
+                        },
+                        {
+                            title: 'Украинские воины должны отвечать врагу в случае нарушения им перемирия – Зеленский',
+                            date: '12 февраля 2021 в 13:45'
+                        }
+                    ]
+                }
+            },
+            mounted() {
+                this.filteredArticles = this.articles
+            },
+            methods: {
+                filter() {
+                    this.filteredArticles = this.articles.filter(art => {
+                        console.log(art.title.indexOf(this.search))
+                        return art.title.indexOf(this.search) > -1;
+                    })
+                }
+            },
+        }
+
+        Vue.createApp(App).mount('#app')
+    </script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
